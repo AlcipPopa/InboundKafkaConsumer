@@ -12,8 +12,8 @@ public class ObservationListener {
 	private static final Logger log = LoggerFactory.getLogger(ObservationListener.class);
 
 	
-	@KafkaListener(groupId = "gruppo1", topics = "test")
-	public void listen(String data) {
-		log.info("Ricevuto da listen: " + data);
-	}
+//	@KafkaListener(groupId = "gruppo1", topics = "test")
+//	public void listen(String data) {
+//		log.info("Ricevuto da listen: " + data);
+//	}
 }

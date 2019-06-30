@@ -14,6 +14,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ContainerProperties;
+import org.springframework.kafka.listener.ContainerProperties.AckMode;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.kafka.support.TopicPartitionInitialOffset;
@@ -35,8 +36,9 @@ public class ConsumingConfig {
 	public ConsumerFactory<?, ?> kafkaConsumerFactory(KafkaProperties properties) {
 		Map<String, Object> consumerProperties = properties.buildConsumerProperties();
 		consumerProperties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 15000);
-
-		return new DefaultKafkaConsumerFactory<>(consumerProperties);
+		DefaultKafkaConsumerFactory<String, String> factory = new DefaultKafkaConsumerFactory<>(consumerProperties);
+		
+		return factory;
 	}
 
 	/**
@@ -49,6 +51,7 @@ public class ConsumingConfig {
 		
 		KafkaMessageListenerContainer<String, String> container = new KafkaMessageListenerContainer<>(kafkaConsumerFactory,
 				containerProps);
+		container.getContainerProperties().setAckMode(AckMode.MANUAL);
 		
 		return container;
 	}
