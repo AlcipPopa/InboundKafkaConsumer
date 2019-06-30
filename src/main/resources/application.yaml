@@ -1,0 +1,14 @@
+kafka:
+  topic: test
+  messageKey: ciao
+
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:19092
+      group-id: ordini
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  
